@@ -67,7 +67,8 @@ wheels/
 .installed.cfg 
 *.egg 
 *.manifest 
-*.spec 
+*.spec
+.edea/
 
 # Installer logs 
 pip-log.txt 
