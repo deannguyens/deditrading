@@ -1,12 +1,25 @@
 {
-    "routes": [
+  "builds": [
+    {
+      "src": "api/wsgi.py",
+      "use": "@vercel/python",
+      "config": {
+        "maxLambdaSize": "15mb",
+        "runtime": "python3.12",
+        "buildCommand": "bash setup.sh"
+      }
+    }
+  ],
+  "routes": [
       {
         "src": "/(.*)",
         "dest": "api/wsgi.py"
       }
     ], 
-    "crons": [{
-    "path": "/api/index",
-    "schedule": "0 1 * * *"
-  }]
+    "crons": [
+      {
+        "path": "/api/index",
+        "schedule": "0 1 * * *"
+      }
+    ]
   }
