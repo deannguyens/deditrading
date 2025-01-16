@@ -21,5 +21,5 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
-    path('api/index', views.cron, name='cron'),
+    path('api/index', views.cron_dedi, name='cron'),
 ]
