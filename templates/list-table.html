@@ -1,0 +1,59 @@
+
+{% extends 'layout/base_html.html' %}
+{% load format_tag %}
+
+{% block header %}
+{% include 'layout/header.html' %}
+{% endblock %}
+
+{% block content %}
+
+
+<div class="container text-center mt-3">
+  <div class="row">
+      {% for cart in carts %}
+          <div class="col">
+             <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">{{ cart.display }}</h5>
+                    <p class="card-text">{{ cart.text }}</p>
+                    <a href="{{ cart.href }}" class="btn btn-primary">{{ cart.value }}</a>
+                  </div>
+              </div>
+        </div>
+    {% endfor %}
+  </div>
+
+  <div class="row gx-5 table-responsive">
+
+    <table class="table table-sm">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Today Address ({{ json_object.results | length }})</th>
+      <th scope="col">Quantity</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in json_object.results %}
+      <tr>
+        <td style="width: 10px">{{ forloop.counter }}</td>
+        <td class="w-25 text-start">
+          <span>{{item.asset_address__payment_address}}</span>
+<!--          <span class="d-block">{{item.asset_address__stake_address}}</span>-->
+        </td>
+        <td class="text-center">{{item.quantity|currency}}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+  </div>
+</div>
+
+
+
+
+
+
+{% endblock content %}

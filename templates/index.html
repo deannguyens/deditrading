@@ -1,0 +1,90 @@
+
+
+{% extends 'layout/base_html.html' %}
+
+{% block header %}
+{% include 'layout/header.html' %}
+{% endblock %}
+
+{% block content %}
+
+
+<div class="container text-center mt-3">
+  <div class="row gx-5">
+    <div class="col">
+      <div id="chartContainer"></div>
+    </div>
+    <div class="col">
+      <select class="form-select" aria-label="Default select example">
+        <option value="1" selected>One</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+      </select>
+      <div id="chartContainer2" style="width: 100%; height: 360px;"></div>
+    </div>
+  </div>
+</div>
+
+<!--<div class="grid grid-cols-2 gap-2">-->
+<!--        <div>-->
+<!--            <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg" alt="">-->
+<!--        </div>-->
+<!--        <div>-->
+<!--            <div id="chartContainer"></div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+
+
+
+
+<script>
+
+    window.onload = function () {
+
+
+        var chart = new CanvasJS.Chart("chartContainer", {
+            theme: "light2",
+            animationEnabled: true,
+            title:{
+                text: "Today DEDI Wallet Analysis"
+            },
+            data: [{
+                type: "pie",
+                startAngle: -90,
+                yValueFormatString: "#,###'%'",
+                dataPoints: {{ datapoints | safe }},
+                click: function(e){
+    alert(  e.dataSeries.type+ ", dataPoint { x:" + e.dataPoint.label + ", y: "+ e.dataPoint.y + " }" );
+   },
+            }]
+        });
+        chart.render();
+
+
+
+
+  var chart2= new CanvasJS.Chart("chartContainer2", {
+    theme: "light2",
+    title: {
+      text: "Step Count Over a Week"
+    },
+    axisY: {
+      title: "Number of Steps",
+      stripLines: [{
+        value: 10000,
+        label: "Goal"
+      }]
+    },
+    data: [{
+      type: "line",
+      yValueFormatString: "#,### Steps",
+      dataPoints: {{ stepcount|safe }}
+    }]
+  });
+  chart2.render();
+    }
+</script>
+
+
+{% endblock content %}

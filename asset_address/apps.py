@@ -6,6 +6,13 @@ class AssetAddressConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'asset_address'
 
+
+    def ready(self):
+        try:
+            import asset_address.task
+        except ImportError:
+            pass
+
     # def ready(self):
     #     print("start-------1")
     #     import threading

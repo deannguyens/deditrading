@@ -17,9 +17,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from . import views
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index, name='index'),
+    path('', views.list_table, name='index'),
+    # path("list-table/", views.list_table, name="list-table"),
+    path("check-quantity", views.check_quantity, name="check-quantity"),
     path('api/index', views.cron_dedi, name='cron'),
-]
+    path('api/specific-address', views.specific_address, name='specific_address'),
+    path('api/task', views.task_test, name='task_test'),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)

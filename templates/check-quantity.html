@@ -1,0 +1,40 @@
+
+{% extends 'layout/base_html.html' %}
+{% load format_tag %}
+
+{% block header %}
+{% include 'layout/header.html' %}
+{% endblock %}
+
+{% block content %}
+
+
+<div class="container text-center mt-3">
+  <div class="row gx-5 table-responsive">
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Today Address ({{ results.count }})</th>
+      <th scope="col">Quantity</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in results %}
+      <tr>
+        <td style="width: 10px">{{ forloop.counter }}</td>
+        <td class="w-25 text-start">{{item.asset_address.payment_address}}</td>
+        <td>{{item.quantity|currency}}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+  </div>
+</div>
+
+
+
+
+
+
+{% endblock content %}

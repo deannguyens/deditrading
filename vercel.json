@@ -5,20 +5,30 @@
       "use": "@vercel/python",
       "config": {
         "maxLambdaSize": "15mb",
-        "runtime": "python3.12",
-        "buildCommand": "bash setup.sh"
+        "runtime": "python3.12"
       }
-    }
+    },
+    {
+        "src": "build_files.sh",
+        "use": "@vercel/static-build",
+        "config": {
+          "distDir": "staticfiles_build"
+        }
+      }
   ],
   "routes": [
       {
         "src": "/(.*)",
         "dest": "api/wsgi.py"
+      },
+      {
+        "src": "/static/(.*)",
+        "dest": "/static/$1"
       }
-    ], 
+  ],
     "crons": [
       {
-        "path": "/api/index",
+        "path": "/api/task",
         "schedule": "0 1 * * *"
       }
     ]
