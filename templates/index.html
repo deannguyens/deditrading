@@ -1,0 +1,47 @@
+<!-- index.html -->
+{% load static %}
+<html>
+<head>
+<title>CanvasJS Python Charts</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="{% static 'styles/tailwind.css' %}">
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<script src="{% static 'js/canvasjs/canvasjs-chart-3.10.21/canvasjs.min.js' %}"></script>
+
+<script>
+    window.onload = function () {
+        var chart = new CanvasJS.Chart("chartContainer", {
+            theme: "light2",
+            animationEnabled: true,
+            title:{
+                text: "Monthly Sales Analysis"
+            },
+            data: [{
+                type: "pie",
+                startAngle: -90,
+                yValueFormatString: "#,###'%'",
+                dataPoints: {{ datapoints | safe }},
+                click: function(e){
+    alert(  e.dataSeries.type+ ", dataPoint { x:" + e.dataPoint.label + ", y: "+ e.dataPoint.y + " }" );
+   },
+            }]
+        });
+        chart.render();
+    }
+</script>
+
+</head>
+<body class="h-screen bg-slate-300 dark:bg-slate-400">
+<h1 class="text-3xl font-bold underline">
+    Hello world!
+  </h1>
+
+<section class="container mx-auto flex flex-col items-center">
+        <h1 class="mb-4 mt-10 text-6xl font-bold text-blue-500 dark:text-blue-200" >
+          Chat Bubble
+        </h1>
+      </section>
+    <div id="chartContainer" style="width: 100%; height: 360px;"></div>
+</body>
+</html>
