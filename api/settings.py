@@ -96,7 +96,8 @@ WSGI_APPLICATION = 'api.wsgi.app'
 # DATABASES = {
 #     'default': env.db("DATABASE_URL")
 # }
-DATABASES = {"default": env.db("DATABASE_URL")}
+# DATABASES = {"default": env.db("DATABASE_URL")}
+DATABASES = {}
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
 
 

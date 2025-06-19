@@ -26,16 +26,14 @@ def cron_end(from_page, only_page=True):
 
         if len(results) == 0:
             check = False
+            print("FINISH--------page--", page)
         else:
             for index, result in enumerate(results, 1):
-                # print("result______", result)
                 if index == len(results):
-                    print("end call api--------page--", page)
+                    print("end call per api--------page--", page)
                 if int(result.get("quantity")) < 100000:
                     continue
                 address = result['address']
-                if address == "addr1qyraguhfvjlz8hy97nzt6yw76wcx0j0qwqdem6lktthm3f3a0jcqqwpuywjd07wfhf280pgqr6h2v4fvss0pkddpcv8sjtmfmz":
-                    print("_---------------------___________", result)
                 response_wa = requests.get(URL_SPECIFIC_ADDRESS.format(address))
                 response_wa = response_wa.json()
                 stake_address = None
