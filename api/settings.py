@@ -96,8 +96,8 @@ WSGI_APPLICATION = 'api.wsgi.app'
 # DATABASES = {
 #     'default': env.db("DATABASE_URL")
 # }
-# DATABASES = {"default": env.db("DATABASE_URL")}
-DATABASES = {}
+DATABASES = {"default": env.db("DATABASE_URL")}
+# DATABASES = {}
 # DATABASES["default"]["ATOMIC_REQUESTS"] = True
 
 
@@ -155,3 +155,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # CELERY_BROKER_URL = env("CELERY_BROKER_URL")
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-result_backend
 # CELERY_RESULT_BACKEND = CELERY_BROKER_URL
+
+from celery.schedules import crontab
+
+CELERY_BEAT_SCHEDULE = {
+    'background-process-every-hour': {
+        'task': 'asset_address.task.background_process',
+        'schedule': 60*60,  # chạy mỗi đầu giờ
+    },
+}

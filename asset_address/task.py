@@ -16,7 +16,6 @@ def cron_end(from_page, only_page=True):
     check = True
     page = from_page
     while check:
-        print("start call api--------page--", page)
         url = "https://deditrading.vercel.app/api/index?page={}&count={}".format(page, 100)
         response = requests.get(url)
         if response.status_code != 200:
@@ -27,6 +26,7 @@ def cron_end(from_page, only_page=True):
         if len(results) == 0:
             check = False
             print("FINISH--------page--", page)
+            create_file_json()
         else:
             for index, result in enumerate(results, 1):
                 if index == len(results):
@@ -68,6 +68,7 @@ def cron_end(from_page, only_page=True):
         else:
             page += 1
 
+@shared_task()
 def background_process():
     print("start a---------background_process----------------------------")
     services_tasks = []
@@ -102,18 +103,6 @@ def create_file_json():
         "asset_address__payment_address",
         "asset_address__stake_address",
     )
-    # data  = serializers.serialize('json', queryset)
-    # print("data:  ", queryset)
-    # dictionary = {
-    #     "name": "sathiyajith",
-    #     "rollno": 56,
-    #     "cgpa": 8.6,
-    #     "phonenumber": "9976770500"
-    # }
-    # print("data:  ", data)
-
-    # Serializing json
-    # print("queryset:  ", queryset)
     data = {
         "results": list(queryset),
         "created_at": now.strftime("%d-%m-%Y %H:%M:%S"),
